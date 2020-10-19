@@ -66,9 +66,8 @@ let
         metadata = mkOption {
           type = types.attrs;
           apply = v:
-            if v.name == null then
-              { generateName = "${name}-"; } // v
-            else v;
+            if builtins.hasAttr "name" v then v
+            else { generateName = "${name}-"; } // v;
           default = { generateName = "${name}-"; };
         };
         spec = mkOption {
@@ -177,9 +176,8 @@ let
         metadata = mkOption {
           type = types.attrs;
           apply = v:
-            if v.name == null then
-              { generateName = "${name}-"; } // v
-            else v;
+            if builtins.hasAttr "name" v then v
+            else { generateName = "${name}-"; } // v;
           default = { generateName = "${name}-"; };
         };
         spec = mkOption {
