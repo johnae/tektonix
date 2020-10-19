@@ -38,7 +38,8 @@ let
                 type = types.listOf types.attrs;
               };
               sidecars = mkOption {
-                type = types.listOf types.attrs;
+                type = types.nullOr (types.listOf types.attrs);
+                default = null;
               };
               volumes = mkOption {
                 type = types.nullOr (types.attrsOf types.attrs);
