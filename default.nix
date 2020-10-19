@@ -4,6 +4,7 @@
     builtins.split "(\.nix$)"
       (builtins.baseNameOf pipelinePath)
   ))
+, extraConfigJson ? "{}"
 , specialArgs ? { }
 }:
 let
@@ -37,7 +38,12 @@ let
       modules = modules ++ [
         pipelinePath
       ];
-      args = { config = result.config; lib = pkgs.lib; };
+      args = {
+        inherit pkgs name;
+        config = result.config;
+        lib = pkgs.lib;
+        extraConfig = builtins.fromJSON extraConfigJson;
+      };
       inherit specialArgs;
     };
 

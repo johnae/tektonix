@@ -27,9 +27,10 @@
               exit 1
             fi
             pipelineName=''${2:-"$(basename "$pipelinePath" .nix)"}
+            extraConfigJson=''${3:-"{}"};
             cd ${self}
             ${pkgs.nixUnstable}/bin/nix eval --json --impure --expr \
-                 "import ./. { pkgs = import ${pkgs.path} { }; pipelinePath = $pipelinePath; name = \"$pipelineName\"; }"
+                 "import ./. { pkgs = import ${pkgs.path} { }; pipelinePath = $pipelinePath; name = \"$pipelineName\"; extraConfigJson = '''$extraConfigJson'''; }"
           '';
         in
         {
