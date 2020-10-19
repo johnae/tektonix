@@ -37,6 +37,9 @@ let
               steps = mkOption {
                 type = types.listOf types.attrs;
               };
+              sidecars = mkOption {
+                type = types.listOf types.attrs;
+              };
               volumes = mkOption {
                 type = types.nullOr (types.attrsOf types.attrs);
                 default = null;
@@ -61,7 +64,10 @@ let
         };
         metadata = mkOption {
           type = types.attrs;
-          apply = v: { generateName = "${name}-"; } // v;
+          apply = v:
+            if v.name == null then
+              { generateName = "${name}-"; } // v
+            else v;
           default = { generateName = "${name}-"; };
         };
         spec = mkOption {
@@ -169,7 +175,10 @@ let
         };
         metadata = mkOption {
           type = types.attrs;
-          apply = v: { generateName = "${name}-"; } // v;
+          apply = v:
+            if v.name == null then
+              { generateName = "${name}-"; } // v
+            else v;
           default = { generateName = "${name}-"; };
         };
         spec = mkOption {
