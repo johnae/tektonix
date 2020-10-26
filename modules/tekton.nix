@@ -34,6 +34,20 @@ let
                 default = null;
                 apply = attrValueToList;
               };
+              results = mkOption {
+                type = types.nullOr (types.listOf (types.submodule {
+                  options = {
+                    name = mkOption {
+                      type = types.str;
+                    };
+                    description = mkOption {
+                      type = types.nullOr types.str;
+                      default = null;
+                    };
+                  };
+                }));
+                default = null;
+              };
               steps = mkOption {
                 type = types.listOf types.attrs;
               };
@@ -150,6 +164,23 @@ let
                 type = types.nullOr (types.attrsOf types.attrs);
                 default = null;
                 apply = attrValueToList;
+              };
+              results = mkOption {
+                type = types.nullOr (types.listOf (types.submodule {
+                  options = {
+                    name = mkOption {
+                      type = types.str;
+                    };
+                    value = mkOption {
+                      type = types.str;
+                    };
+                    description = mkOption {
+                      type = types.nullOr types.str;
+                      default = null;
+                    };
+                  };
+                }));
+                default = null;
               };
               tasks = mkOption {
                 type = types.nullOr (types.attrsOf pipelineTasksModule);
